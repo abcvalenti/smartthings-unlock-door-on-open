@@ -1,0 +1,67 @@
+/**
+ *  Enhanced Unlock Door on Open
+ *
+ *  Copyright 2015 Wes DeBoer
+ *  Copyright 2016 Chris Valenti
+ *
+ *  Forked from Unlock Door on Open on gitHub from wesdeboer.
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License. You may obtain a copy of the License at:
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+ *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
+ *  for the specific language governing permissions and limitations under the License.
+ *
+ */
+definition(
+    name: "Enhanced Unlock Door on Open",
+    namespace: "abcvalenti",
+    author: "Chris Valenti",
+    description: "This will unlock a door x number of minutes after a contact sensor opens. Helpful for unlocking a door between a house and garage after the garage door opens.",
+    category: "My Apps",
+    iconUrl: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience.png",
+    iconX2Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png",
+    iconX3Url: "https://s3.amazonaws.com/smartapp-icons/Convenience/Cat-Convenience@2x.png")
+
+
+preferences {
+	section("When this door opens") {
+        input "openSensor", "capability.contactSensor", title: "Select Contact", requried: true
+    }
+    section("Unlock this door") {
+        input "doorLock", "capability.lock", title: "Select Lock", required: true
+	}
+    section("Wait this many minutes before unlocking the door") {
+    	input "minutes", "decimal", title: "Minutes? (Can be entered as a decimal)", defaultValue: "0"
+    }
+}
+
+def installed() {
+	log.debug "Installed with settings: ${settings}"
+
+	initialize()
+}
+
+def updated() {
+	log.debug "Updated with settings: ${settings}"
+
+	unsubscribe()
+	initialize()
+}
+
+def initialize() {
+    subscribe(openSensor, "contact.open", unlockOnOpen)
+}
+
+def unlockOnOpen(evt) {
+    log.debug "Door opened"
+    runIn(60*minutes, unlockDoor)
+}
+
+def unlockDoor() {
+    log.debug "Door unlocked"
+    doorLock.unlock()
+}
