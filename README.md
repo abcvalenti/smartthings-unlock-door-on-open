@@ -1,4 +1,4 @@
-# Smart Things - Unlock Door On Open
+# Smart Things - Enhanced Unlock Door On Open
 
 A smartthings app to unlock a door when an open close sensor is opened.
 
@@ -10,4 +10,4 @@ A smartthings app to unlock a door when an open close sensor is opened.
 4. Paste the code from the provided script
 5. Save and Publish
 
-With this app created and published for yourself you can now set up a door to unlock on the open state of an open/close sensor. I use this to unlock a lever lock (http://www.kwikset.com/products/details/electronic-locks/912tnl-trl-zw-11p-smt.aspx) that is on a self closing door so that I don't lock myself out. I could just type in the code to get back in but this is what SmartThings is for righ?
+This app has been enhanced from the original app in that now it adds a delay of x minutes (where you can enter the minutes in decimal format. Example: 2.5 minutes) after the open/close sensor was opened before unlocking the door. I did this because I want the lock between my house and garage to unlock after the garage door opens, but wanted to add a delay in case of someone getting my garage door opened, they wouldn't immediately be able to get into the house (figure a perpetrator would want immediate access, and if not, would leave).
