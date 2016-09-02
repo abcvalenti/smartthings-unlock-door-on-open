@@ -29,7 +29,7 @@ definition(
 
 preferences {
 	section("When this door opens") {
-        input "openSensor", "capability.contactSensor", title: "Select Contact", requried: true
+        input "openSensor", "capability.contactSensor", title: "Select Contact", required: true
     }
     section("Unlock this door") {
         input "doorLock", "capability.lock", title: "Select Lock", required: true
